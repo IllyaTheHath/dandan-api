@@ -11,7 +11,7 @@ docker run -d \
 ```
 version: "3"
 services:
-  h5ai:
+  dandan:
     image: illyathehath/dandan-api
     # build: .
     restart: always
