@@ -64,7 +64,7 @@ def type():
 
 
 @app.get("/list")
-def list(keyword: str, subgroup: Optional[int] = 0, type: Optional[int] = 0, r: Optional[str] = None):
+def list(keyword: str, subgroup: Optional[str] = None, type: Optional[str] = None, r: Optional[str] = None):
     res = requests.get(dmhy_list_uri.format(keyword, type, subgroup))
     res.encoding = "utf-8"
     soup = BeautifulSoup(res.text, 'html.parser')
