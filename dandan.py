@@ -9,7 +9,7 @@ import arrow
 app = FastAPI()
 dmhy_base_uri = "https://share.dmhy.org"
 dmhy_type_and_subgroup_uri = f"{dmhy_base_uri}/topics/advanced-search?team_id=0&sort_id=0&orderby="
-dmhy_list_uri = f"{dmhy_base_uri}/topics/list/page/1?keyword={{0}}&sort_id={{1}}&team_id={{2}}&order=date-desc"
+dmhy_list_uri = f"{dmhy_base_uri}/topics/list/page/{{3}}?keyword={{0}}&sort_id={{1}}&team_id={{2}}&order=date-desc"
 unknown_subgroup_id = -1
 unknown_subgroup_name = "未知字幕组"
 
@@ -64,8 +64,8 @@ def type():
 
 
 @app.get("/list")
-def list(keyword: str, subgroup: Optional[str] = None, type: Optional[str] = None, r: Optional[str] = None):
-    res = requests.get(dmhy_list_uri.format(keyword, type, subgroup))
+def listPage(keyword: str, subgroup: Optional[str] = None, type: Optional[str] = None, r: Optional[str] = None, page: Optional[int] = 1):
+    res = requests.get(dmhy_list_uri.format(keyword, type, subgroup, page))
     res.encoding = "utf-8"
     soup = BeautifulSoup(res.text, 'html.parser')
     trs = soup.select("table#topic_list tbody tr")
